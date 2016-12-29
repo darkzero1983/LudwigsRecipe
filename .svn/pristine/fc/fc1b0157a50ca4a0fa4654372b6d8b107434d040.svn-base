@@ -1,0 +1,55 @@
+﻿@import "../includes.less";
+
+@media (min-width: @md-width-min) {
+	.teaser-image {
+		width: 250px;
+
+		img {
+			width: 240px;
+			height: 180px;
+		}
+	}
+
+	.recipe-overview-item {
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+
+		
+
+		.teaser-text {
+			.recipe-name {
+				font-size: 26px;
+				font-weight: bold;
+			}
+
+			width: ~"calc(100% - 250px)";
+		}
+	}
+	.detail-image
+	{
+		margin-top:5px;
+	}
+	.recipe-left-element-distance
+	{
+		margin-right:20px;
+		margin-bottom:20px;
+	}
+
+	#ingredientTable
+	{
+		td
+		{
+			padding-top:2px;
+			padding-bottom:2px;
+			.form-control
+			{
+				font-size:12px;
+			}
+			.btn-danger
+			{
+				padding:2px 5px;
+			}
+			
+		}
+	}
+}

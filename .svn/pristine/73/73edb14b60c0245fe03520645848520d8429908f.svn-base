@@ -1,0 +1,14 @@
+﻿import { Component, Injectable } from '@angular/core';
+
+
+@Component({
+	templateUrl: '/views/cms/CmsDashboard.html'
+})
+
+export class CmsDashboardComponent  {
+	constructor(
+	) {
+	}
+
+	
+}

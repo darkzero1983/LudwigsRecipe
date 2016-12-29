@@ -1,0 +1,63 @@
+"use strict";
+class IngredientListViewModel {
+}
+exports.IngredientListViewModel = IngredientListViewModel;
+class RecipeDetailViewModel {
+    constructor() {
+        this.Ingredients = new Array();
+        this.Measurement = new MeasurementViewModel();
+    }
+}
+exports.RecipeDetailViewModel = RecipeDetailViewModel;
+class RecipeOverviewRecipe {
+}
+exports.RecipeOverviewRecipe = RecipeOverviewRecipe;
+class PagingViewModel {
+}
+exports.PagingViewModel = PagingViewModel;
+class RecipeOverviewViewModel {
+    constructor() {
+        this.Paging = new PagingViewModel();
+    }
+}
+exports.RecipeOverviewViewModel = RecipeOverviewViewModel;
+class NavigationItemViewModel {
+}
+exports.NavigationItemViewModel = NavigationItemViewModel;
+class NavigationGroupViewModel {
+    constructor() {
+        this.Items = new Array();
+    }
+}
+exports.NavigationGroupViewModel = NavigationGroupViewModel;
+class NavigationViewModel {
+    constructor() {
+        this.MainNavigation = new Array();
+        this.SubNavigation = new Array();
+    }
+}
+exports.NavigationViewModel = NavigationViewModel;
+class HitCountViewModel {
+}
+exports.HitCountViewModel = HitCountViewModel;
+class MeasurementViewModel {
+}
+exports.MeasurementViewModel = MeasurementViewModel;
+class CategoryEditViewModel {
+    constructor() {
+        this.Categories = new Array();
+    }
+}
+exports.CategoryEditViewModel = CategoryEditViewModel;
+class EditCategoryViewModel {
+    constructor() {
+        this.SubCategories = new Array();
+    }
+}
+exports.EditCategoryViewModel = EditCategoryViewModel;
+class EditSubCategoryViewModel {
+}
+exports.EditSubCategoryViewModel = EditSubCategoryViewModel;
+class ContactViewModel {
+}
+exports.ContactViewModel = ContactViewModel;

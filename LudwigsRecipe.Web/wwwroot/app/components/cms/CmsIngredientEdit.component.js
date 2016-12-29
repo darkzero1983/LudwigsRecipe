@@ -1,0 +1,27 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('@angular/core');
+var services_1 = require('app/services');
+var CmsIngredientEditComponent = (function () {
+    function CmsIngredientEditComponent(cmsService) {
+        var _this = this;
+        this.cmsService = cmsService;
+        this.cmsService.getIngredients().then(function (ingredients) { return _this.ingredients = ingredients; });
+    }
+    CmsIngredientEditComponent = __decorate([
+        core_1.Component({
+            template: "\n\t\t<h1 class=\"headline\" > Zutaten Bearbeiten</h1 >\n\t\t<div class=\"row hidden-sm-down\">\n\t\t\t<div class=\"col-md-1\"><strong></strong></div>\n\t\t\t<div class=\"col-md-8\"><strong>Name</strong></div>\n\t\t\t<div class=\"col-md-3 text-right\"><strong>Aktionen</strong></div>\n\t\t</div>\n\t\t<div *ngFor=\"let ingredient of ingredients\">\n\t\t\t\n\n\t\t\t<div class=\"row\" style=\"padding-bottom:3px;margin-bottom:3px;border-bottom:1px solid #D6D6D6\">\n\t\t\t\t\n\t\t\t\t<div class=\"col-xs-8 col-md-1\" style=\"padding-top:10px;\">\n\t\t\t\t\t<label class=\"form-check-label\">\n\t\t\t\t\t\t<input class=\"form-check-input\" type=\"checkbox\">\n\t\t\t\t\t</label>\n\t\t\t\t</div>\n\n\t\t\t\t<div class=\"row hidden-md-up\"><div class=\"col-xs-12\">Name</div></div>\n\t\t\t\t<div class=\"col-xs-12 col-md-8\" style=\"padding-top:10px;\">\n\t\t\t\t\t{{ingredient.name}}\n\t\t\t\t</div>\n\n\n\t\t\t\t\n\t\t\t\t<div class=\"col-xs-8 col-md-3 category-buttons\">\n\t\t\t\t\t<span class=\"btn btn-danger\" style=\"margin-left:5px;\" (click)=\"deleteCategory(category);\">\n\t\t\t\t\t\t<i class=\"fa fa-minus\"></i>\n\t\t\t\t\t</span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\n\t<div class=\"navbar navbar-default navbar-fixed-bottom navbar-for-spans\">\n\t\t<div class=\"container\">\n\t\t\t<div class=\"navbar-header\">\n\t\t\t\t<input type=\"submit\" class=\"btn btn-success\" value=\"Auswahl zusammenlegen\" (click)=\"submit();\">\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\t\t\n"
+        }), 
+        __metadata('design:paramtypes', [services_1.CmsService])
+    ], CmsIngredientEditComponent);
+    return CmsIngredientEditComponent;
+}());
+exports.CmsIngredientEditComponent = CmsIngredientEditComponent;

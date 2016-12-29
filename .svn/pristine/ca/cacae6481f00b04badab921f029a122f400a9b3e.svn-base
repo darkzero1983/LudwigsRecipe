@@ -1,0 +1,10 @@
+"use strict";
+var Measurement_model_1 = require('./Measurement.model');
+var RecipeDetailModel = (function () {
+    function RecipeDetailModel() {
+        this.ingredients = new Array();
+        this.measurement = new Measurement_model_1.MeasurementModel();
+    }
+    return RecipeDetailModel;
+}());
+exports.RecipeDetailModel = RecipeDetailModel;

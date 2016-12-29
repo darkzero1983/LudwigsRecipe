@@ -1,0 +1,192 @@
+﻿<h1 class="headline">Rezept bearbeiten</h1>
+
+<div class="alert alert-success navbar-fixed-top" role="alert" [hidden]="!successMessage">{{successMessage}}</div>
+<div class="alert alert-danger navbar-fixed-top" role="alert" [hidden]="!errorMessage">{{errorMessage}}</div>
+
+<h2 class="sub-headline">Rezept</h2>
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Veröffentlichen</label>
+	<div class="col-xs-12 col-sm-10">
+		<label class="c-input c-checkbox">
+			<input type="checkbox" [(ngModel)]="recipeViewModel.isPublished" />
+			<span class="c-indicator"></span>
+		</label>
+	</div>
+</div>
+
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Nur für Freunde</label>
+	<div class="col-xs-12 col-sm-10">
+		<label class="c-input c-checkbox">
+			<input type="checkbox" [(ngModel)]="recipeViewModel.isOnlyForFriends" />
+			<span class="c-indicator"></span>
+		</label>
+	</div>
+</div>
+
+
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">ab</label>
+	<div class="col-xs-12 col-sm-2">
+		<input [(ngModel)]="recipeViewModel.publishDate" class="form-control date-picker" type="text" style="width:140px;">
+	</div>
+	<div class="col-xs-12 col-sm-8">
+		<label class="col-xs-12 col-sm-1 form-control-label no-padding-xs">um</label>
+		<div class="col-xs-12 col-sm-11 no-padding">
+			<div style="display:inline-block;width:80px;">
+				<select class="form-control" [(ngModel)]="recipeViewModel.publishHour">
+					<option *ngFor="let hour of SelectAbleHours" value="{{hour}}">{{hour}}</option>
+				</select>
+			</div>
+			<label class="form-control-label no-padding-xs text-center">:</label>
+			<div style="display:inline-block;width:80px;">
+				<select class="form-control" [(ngModel)]="recipeViewModel.publishMinute">
+					<option *ngFor="let minute of SelectAbleMinuts" value="{{minute}}">{{minute}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">TeaserImage</label>
+	<div class="col-xs-12 col-sm-10">
+		<div class="teaser-image"><img src="{{recipeViewModel.teaserImageUrl}}?w=640&h=480&mode=crop"></div>
+		<input class="form-control input-md" type="file" style="width:100%;" (change)="fileChangeEvent($event)">
+	</div>
+</div>
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Titel</label>
+	<div class="col-xs-12 col-sm-10">
+		<input [(ngModel)]="recipeViewModel.name" class="form-control input-md" type="text" style="width:100%;">
+	</div>
+</div>
+
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Beschreibung</label>
+	<div class="col-xs-12 col-sm-10">
+		<textarea [(ngModel)]="recipeViewModel.description" class="form-control" cols="20" rows="2"></textarea>
+	</div>
+</div>
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Rezept</label>
+	<div class="col-xs-12 col-sm-10">
+		<span class="btn btn-secondary" (click)="changeContent('dn')">DN</span>
+		<span class="btn btn-secondary" (click)="changeContent('li')">li</span>
+		<textarea id="recipeContentTextarea" [(ngModel)]="recipeViewModel.content" class="form-control" cols="20" rows="5"></textarea>
+	</div>
+</div>
+
+
+
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Vorbereitung in Min.</label>
+	<div class="col-xs-12 col-sm-10">
+		<input [(ngModel)]="recipeViewModel.preparationTime" class="form-control input-md" type="text" style="width:100%;" placeholder="Vorbereitungszeit in Minuten">
+	</div>
+</div>
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Zubereitung in Min.</label>
+	<div class="col-xs-12 col-sm-10">
+		<input [(ngModel)]="recipeViewModel.waitingTime" class="form-control input-md" type="text" style="width:100%;" placeholder="Zubereitungszeit in Minuten">
+	</div>
+</div>
+
+<h2 class="sub-headline">Zutaten</h2>
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Anzahl</label>
+	<div class="col-xs-12 col-sm-10">
+		<input [(ngModel)]="recipeViewModel.ingredientCount" class="form-control input-md" type="number" style="width:100%;">
+	</div>
+</div>
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Einheit</label>
+	<div class="col-xs-12 col-sm-10">
+		<select class="form-control" [(ngModel)]="recipeViewModel.measurement.id" (change)="recipeViewModel.measurement.id = $event.target.value;">
+			<option value="0">-- Neu --</option>
+			<option *ngFor="let measurement of SelectAbleMeasurements" value="{{measurement.Id}}">{{measurement.Name}}</option>
+		</select>
+		<input type="text" class="form-control input-md" placeholder="Einheit" [(ngModel)]="recipeViewModel.measurement.name" [hidden]="recipeViewModel.measurement.id != 0">
+	</div>
+</div>
+
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Zutaten</label>
+	<div class="col-xs-12 col-sm-10 ingredient-table">
+		<div class="row" *ngFor="let ingredientItem of recipeViewModel.ingredientList" style="cursor:pointer;">
+			<div class="col-xs-12 col-sm-3" style="padding:0;">
+				<input type="text" class="form-control input-md" placeholder="Anzahl" [(ngModel)]="ingredientItem.amount">
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<select class="form-control" [(ngModel)]="ingredientItem.MeasurementId" (change)="ingredientItem.measurementId = $event.target.value;">
+					<option value="0">-- Neu --</option>
+					<option *ngFor="let measurement of SelectAbleMeasurements" value="{{measurement.Id}}">{{measurement.Name}}</option>
+				</select>
+				<input type="text" class="form-control input-md" placeholder="Einheit" [(ngModel)]="ingredientItem.measurementName" [hidden]="ingredientItem.measurementId != 0">
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<select class="form-control" [(ngModel)]="ingredientItem.IngredientId" (change)="ingredientItem.ingredientId = $event.target.value;">
+					<option value="0">-- Neu --</option>
+					<option *ngFor="let ingredient of SelectAbleIngerdients" value="{{ingredient.Id}}">{{ingredient.Name}}</option>
+				</select>
+				<input type="text" class="form-control input-md" placeholder="Zutat" [(ngModel)]="ingredientItem.ingredientName" [hidden]="ingredientItem.ingredientId != 0">
+			</div>
+			<div class="col-xs-12 col-sm-1 text-right" style="padding:0;">
+				<span class="btn btn-danger" (click)="deleteIngredient(ingredientItem);">
+					<i class="fa fa-minus"></i>
+				</span>
+			</div>
+		</div>
+		<span class="btn btn-success" (click)="addIngredient();"><i class="fa fa-plus"></i> Zutat</span>
+	</div>
+</div>
+
+<h2 class="sub-headline">Zuordnung</h2>
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Autoren</label>
+	<div class="col-xs-12 col-sm-10">
+		<select class="js-authors-multiple form-control" multiple="multiple">
+			<option *ngFor="let author of SelectAbleAuthors" value="{{author.id}}">{{author.name}}</option>
+		</select>
+	</div>
+</div>
+
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Tags</label>
+	<div class="col-xs-12 col-sm-10">
+		<select class="js-tags-multiple form-control" multiple="multiple">
+			<option *ngFor="let seoTag of SelectAbleSeoTags" value="{{seoTag.id}}">{{seoTag.name}}</option>
+		</select>
+	</div>
+</div>
+
+
+
+<div class="row">
+	<label class="col-xs-12 col-sm-2 form-control-label" for="textinput">Kategorien</label>
+	<div class="col-xs-12 col-sm-10">
+
+		<div *ngFor="let category of recipeViewModel.categories" class="col-xs-12 col-sm-6 col-md-4 relation-bordered-box" style="margin-bottom:5px;">
+			<div class="bordered-box">
+				<h2>
+					<label class="c-input c-checkbox"><input type="checkbox" [(ngModel)]="category.isSelected" (change)="changeCategory(category)" /><span class="c-indicator"></span></label>
+					<span class="category-name ">{{category.name}}</span>
+				</h2>
+				<div class="multi-select-box" id="multi-select-box-categories">
+					<div *ngFor="let subCategory of category.subCategories">
+						<label class="c-input c-checkbox"><input type="checkbox" [(ngModel)]="subCategory.isSelected" (change)="changeSubCategory(category, subCategory)" /><span class="c-indicator"></span></label>
+						<label class="subcategory-name">{{subCategory.name}}</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="navbar navbar-default navbar-fixed-bottom navbar-for-spans">
+	<div class="container">
+		<div class="navbar-header">
+			<input type="submit" class="btn btn-success" value="Speichern">
+		</div>
+	</div>
+</div>

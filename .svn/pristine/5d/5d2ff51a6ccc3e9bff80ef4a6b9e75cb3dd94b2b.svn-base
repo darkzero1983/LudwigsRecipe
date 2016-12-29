@@ -1,0 +1,5 @@
+﻿@import "../includes.less";
+
+@media (max-width: @xs-width-max) {
+	
+}

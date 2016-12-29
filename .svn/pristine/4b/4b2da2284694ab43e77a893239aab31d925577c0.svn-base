@@ -1,0 +1,32 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using LudwigsRecipe.Service.Services.Recipe;
+using LudwigsRecipe.Service.Models.Recipe;
+
+namespace LudwigsRecipe.Web.Api.Recipe
+{
+	[Route("api/cms/[controller]")]
+	public class RecipeEditController : Controller
+	{
+		#region ctor
+		private readonly IRecipeService _recipeService;
+
+		public RecipeEditController(IRecipeService recipeService)
+		{
+			_recipeService = recipeService;
+		}
+		#endregion
+
+		[HttpGet("{id}")]
+		public RecipeEditViewModel Get(int id)
+		{
+			RecipeEditViewModel recipe = new RecipeEditViewModel();
+
+			if (User.IsInRole("Admin") || User.IsInRole("Author"))
+			{
+				recipe = _recipeService.LoadRecipeEditViewModel(id);
+			}
+			
+			return recipe;
+		}
+	}
+}

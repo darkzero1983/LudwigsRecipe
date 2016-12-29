@@ -1,0 +1,60 @@
+@media (min-width: 768px) {
+  .header-logo {
+    height: 100px;
+  }
+  .navbar .navbar-login {
+    margin-right: 20px;
+    float: right;
+  }
+  .navbar .navbar-login a,
+  .navbar .navbar-login a:hover,
+  .navbar .navbar-login a:focus,
+  .navbar .navbar-login a:visited {
+    text-decoration: none;
+    display: inline-block;
+    background-color: #FFF;
+    padding: 3px 10px;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 .25rem .25rem;
+    color: #C1282D;
+  }
+  .navbar .navbar-login a:hover {
+    border-color: #AAA;
+  }
+  .navbar .navbar-brand {
+    margin-left: 10px;
+  }
+  .navbar-toggle {
+    margin-top: 12px;
+  }
+  .container {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .navbar .container {
+    padding-right: 10px;
+    padding-left: 20px;
+  }
+  .navbar-collapse {
+    margin-right: 30px !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    border-top: 1px dotted #e7e7e7;
+  }
+  .navbar-right {
+    border-left: 1px dotted #e7e7e7;
+  }
+  .header-logo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .navbar-search {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+  }
+  .mobile-search-result {
+    display: none;
+  }
+}

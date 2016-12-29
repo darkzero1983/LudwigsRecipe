@@ -1,0 +1,46 @@
+﻿/// <binding ProjectOpened='bundle:css, bundle:js' />
+"use strict";
+
+const gulp = require("gulp");
+const less = require("gulp-less");
+const concatCss = require('gulp-concat-css');
+const watch = require("gulp-watch");
+const tslint = require('gulp-tslint');;
+const del = require("del");
+const systemjsBuilder = require('systemjs-builder');
+const browserify = require('gulp-browserify');
+const concat = require('gulp-concat');
+
+gulp.task('bundle:js-manuell', function () {
+	var builder = new systemjsBuilder('', './Scripts/system.config.js');
+	return builder.buildStatic('wwwroot/app/main.js', 'wwwroot/bundle/app.min.js', { minify: true });
+});
+
+gulp.task('bundle:js', function () {
+	return watch('wwwroot/app/**/*.ts', function () {
+		var builder = new systemjsBuilder('', './Scripts/system.config.js');
+		return builder.buildStatic('wwwroot/app/main.js', 'wwwroot/bundle/app.min.js', { minify: true });
+	});
+});
+
+gulp.task('cms-module-bundle', function() {
+	var builder = new systemjsBuilder('', './Scripts/system.config.js');
+	return builder.buildStatic('wwwroot/app/module/cms.module.js', 'wwwroot/bundle/cms.min.js', { minify: true });
+});
+
+gulp.task('bundle:css', function () {
+	return watch('CSS/**/*.less', function () {
+		gulp.src('CSS/**/*.less')
+				.pipe(less())
+				.pipe(gulp.dest('wwwroot/css/'));
+		gulp.src('CSS/bootstrap/*.css')
+			.pipe(gulp.dest('wwwroot/css/1_frameworks'));
+		gulp.src('wwwroot/css/**/*.css')
+			.pipe(concatCss("site.min.css"))
+			.pipe(gulp.dest('wwwroot/bundle/'));
+	});
+});
+
+//watch('CSS/**/*.less', ['bundle:css']);
+//watch('wwwroot/App/**/*.ts', ['bundle:js']);
+//watch('Scripts/**/*.js', ['bundle:js']);

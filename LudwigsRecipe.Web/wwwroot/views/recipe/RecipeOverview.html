@@ -1,0 +1,9 @@
+﻿<h1 class="headline">{{recipeViewModel.title}}</h1>
+<form id="my-form" class="form-inline">
+	<div class="recipe-overview-item" *ngFor="let recipe of recipeViewModel.recipes">
+		<a routerLink="/Rezept/{{recipe.url}}/{{recipe.id}}">
+			<recipeoverviewitem-directive [recipe]="recipe"></recipeoverviewitem-directive>
+		</a>
+	</div>
+</form>
+<paging-directive [paging]="recipeViewModel.paging" (changePage)="loadRecipes($event);"></paging-directive>

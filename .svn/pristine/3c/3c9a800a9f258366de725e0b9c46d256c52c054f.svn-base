@@ -1,0 +1,108 @@
+﻿import './rxjs-extensions';
+
+import { NgModule }      from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule }   from '@angular/forms';
+import { HttpModule }    from '@angular/http';
+import { RouterModule }  from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
+
+import { AppComponent } from 'app/components';
+
+//Service
+import {
+	AccountService,
+	CmsService,
+	NavigationService,
+	RecipeService,
+	SearchService
+} from 'app/services';
+
+//Components
+import {
+	AccountConfirmEmailComponent,
+	AccountDisplayEmailComponent,
+	AccountForgotPasswordComponent,
+	AccountForgotPasswordConfirmComponent,
+	AccountLoginComponent,
+	AccountLogoutComponent,
+	AccountRegisterComponent,
+	AccountResetPasswordComponent,
+	AccountResetPasswordConfirmComponent,
+	RecipeDetailComponent,
+	RecipeOverviewComponent,
+	AboutComponent,
+	ContactComponent,
+	EmptyComponent,
+	CmsCategoryEditComponent,
+	CmsDashboardComponent,
+	CmsRecipeOverviewComponent,
+	CmsRecipeEditComponent,
+	CmsTemplateComponent,
+	ErrorComponent
+
+} from 'app/components';
+
+//Directives
+import {
+	NavigationMobileDirective,
+	NavigationDesktopDirective,
+	RecipeIngredientsDirective,
+	RecipeOverviewItemDirective,
+	PagingDirective
+} from 'app/directives';
+
+//Pipes
+import {
+	NumberFormatPipe
+} from 'app/pipes';
+
+@NgModule({
+	imports: [
+		BrowserModule,
+		FormsModule,
+		HttpModule,
+		RouterModule.forRoot([
+			{ path: '**', component: ErrorComponent }
+		])
+	],
+	providers: [
+		AccountService,
+		CmsService,
+		NavigationService,
+		RecipeService,
+		SearchService,
+		{ provide: APP_BASE_HREF, useValue: '/' }
+	], 
+	declarations: [
+		AppComponent,
+		AccountConfirmEmailComponent,
+		AccountDisplayEmailComponent,
+		AccountForgotPasswordComponent,
+		AccountForgotPasswordConfirmComponent,
+		AccountLoginComponent,
+		AccountLogoutComponent,
+		AccountRegisterComponent,
+		AccountResetPasswordComponent,
+		AccountResetPasswordConfirmComponent,
+		RecipeDetailComponent,
+		RecipeOverviewComponent,
+		AboutComponent,
+		ContactComponent,
+		EmptyComponent,
+		CmsCategoryEditComponent,
+		CmsDashboardComponent,
+		CmsRecipeOverviewComponent,
+		CmsRecipeEditComponent,
+		CmsTemplateComponent,
+		ErrorComponent,
+		NavigationMobileDirective,
+		NavigationDesktopDirective,
+		RecipeIngredientsDirective,
+		RecipeOverviewItemDirective,
+		PagingDirective,
+		NumberFormatPipe
+	],
+	bootstrap: [AppComponent]
+})
+export class AppModule { }

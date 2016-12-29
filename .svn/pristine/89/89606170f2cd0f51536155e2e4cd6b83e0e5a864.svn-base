@@ -1,0 +1,20 @@
+﻿<div class="form-inline">
+	
+	<div class="recipe-overview-item" *ngFor="let recipe of recipeViewModel.recipes">
+		<recipeoverviewitem-directive [recipe]="recipe"></recipeoverviewitem-directive>
+		<div class="text-right" style="margin-top:10px;">
+			<span class="btn btn-success" routerLink="/CMS/Rezepte/Bearbeiten/{{recipe.id}}">Bearbeiten</span>
+			<span class="btn btn-danger">Löschen</span>
+		</div>
+	</div>
+</div>
+
+<paging-directive [paging]="recipeViewModel.paging" (changePage)="loadRecipes($event);"></paging-directive>
+
+<div class="navbar navbar-default navbar-fixed-bottom navbar-for-spans">
+	<div class="container">
+		<div class="navbar-header">
+			<a class="btn btn-success" routerLink="/CMS/Rezepte/Erstellen"><i class="fa fa-plus"></i> Rezept</a>
+		</div>
+	</div>
+</div>

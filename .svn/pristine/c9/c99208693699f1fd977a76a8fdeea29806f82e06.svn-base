@@ -1,0 +1,22 @@
+﻿import { Injectable, Inject } from '@angular/core';
+import {FormResultModel, NavigationModel, SearchResultModel} from 'app/models';
+
+@Injectable()
+export class GlobalVariablesComponent {
+	public isUserLoggedIn: boolean = false;
+	public returnUrl: string;
+	
+	public RequestResult: FormResultModel = new FormResultModel();
+
+	
+
+	
+
+	constructor(
+	) {
+	}
+	
+
+
+	
+}

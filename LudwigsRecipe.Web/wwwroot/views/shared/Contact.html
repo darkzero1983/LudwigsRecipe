@@ -1,0 +1,37 @@
+﻿<ol class="breadcrumb">
+	<li><a routerLink="/">Ludwigs Rezepte</a></li>
+	<li class="active">Kontakt</li>
+</ol>
+
+<h1 class="headline">Kontaktformular</h1>
+
+<form (ngSubmit)="submitted=true; submit(model);" [hidden]="sendContact">
+	<div class="form-group row">
+		<label class="col-md-2 col-xs-12 form-control-label">Name</label>
+		<div class="col-md-10 col-xs-12">
+			<input (value)="model.Name" type="text" class="form-control" placeholder="Name" required />
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-md-2 col-xs-12 form-control-label">E-Mail-Adresse</label>
+		<div class="col-md-10 col-xs-12">
+			<input (value)="model.Email" type="email" class="form-control" placeholder="E-Mail-Adresse" required />
+		</div>
+	</div>
+	<div class="form-group row">
+		<label class="col-md-2 col-xs-12 form-control-label">Mitteilung</label>
+		<div class="col-md-10 col-xs-12">
+			<textarea (value)="model.Content" type="text" class="form-control" cols="20" rows="5" required></textarea>
+		</div>
+	</div>
+	<div class="form-group row">
+		<div class="col-md-offset-2 col-md-10 col-xs-12">
+			<input type="submit" class="btn btn-success" value="Abschicken">
+		</div>
+	</div>
+</form>
+<div [hidden]="!sendContact">
+	Vielen Dank für deine Anfrage.<br>
+	Wir haben deine Nachricht erhalten und bemühen uns, möglichst schnell darauf zu antworten.<br><br>
+	Dein Team von Ludwigs-Rezepte.de
+</div>

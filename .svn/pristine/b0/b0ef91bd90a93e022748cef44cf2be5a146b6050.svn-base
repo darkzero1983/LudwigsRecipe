@@ -1,0 +1,8 @@
+"use strict";
+class NavigationModel {
+    constructor() {
+        this.MainNavigation = new Array();
+        this.SubNavigation = new Array();
+    }
+}
+exports.NavigationModel = NavigationModel;

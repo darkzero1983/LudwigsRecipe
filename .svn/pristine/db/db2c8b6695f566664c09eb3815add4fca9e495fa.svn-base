@@ -1,0 +1,108 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+const core_1 = require('@angular/core');
+const http_1 = require('@angular/http');
+const router_1 = require('@angular/router');
+require('rxjs/add/operator/toPromise');
+const models_1 = require('app/models');
+let AccountService = class AccountService {
+    constructor(http, router) {
+        this.http = http;
+        this.router = router;
+        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.userInformations = new models_1.UserInformationModel();
+    }
+    canActivate(route, state) {
+        let roles = route.data["roles"];
+        for (let role of roles) {
+            if (this.isUserInGroup(role)) {
+                return true;
+            }
+        }
+        this.router.navigate(['/']);
+        return false;
+    }
+    isUserInGroup(group) {
+        switch (group) {
+            case "author":
+                return this.userInformations.isAuthor;
+            case "admin":
+                return this.userInformations.isAdmin;
+        }
+        return false;
+    }
+    updateUserInformations() {
+        this.http.get('/api/account/GetUserInformation', { headers: this.headers })
+            .toPromise()
+            .then(response => response.json())
+            .then(result => this.userInformations = result)
+            .catch(this.handleError);
+    }
+    login(data) {
+        let headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        let myData = JSON.stringify(data);
+        let result;
+        result = this.http.post('/api/account/Login', myData, { headers: this.headers })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+        this.updateUserInformations();
+        return result;
+    }
+    logout() {
+        return this.http.post('/api/account/Logout', { headers: this.headers })
+            .toPromise()
+            .then(response => response.json())
+            .then(result => this.userInformations.isAdmin = false)
+            .then(result => this.userInformations.isAuthenticated = false)
+            .then(result => this.userInformations.isAuthor = false)
+            .then(result => this.userInformations.isFriend = false)
+            .then(result => this.userInformations.userName = null)
+            .catch(this.handleError);
+    }
+    register(data) {
+        let headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        let myData = JSON.stringify(data);
+        return this.http.post('/api/account/Register', myData, { headers: this.headers })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+    forgotPassword(data) {
+        let headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        let myData = JSON.stringify(data);
+        return this.http.post('/api/account/ForgotPassword', myData, { headers: this.headers })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+    resetPassword(data) {
+        let headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        let myData = JSON.stringify(data);
+        return this.http.post('/api/account/ResetPassword', myData, { headers: this.headers })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+    handleError(error) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
+    }
+};
+AccountService = __decorate([
+    core_1.Injectable(), 
+    __metadata('design:paramtypes', [http_1.Http, router_1.Router])
+], AccountService);
+exports.AccountService = AccountService;

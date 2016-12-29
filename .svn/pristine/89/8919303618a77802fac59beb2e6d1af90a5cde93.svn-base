@@ -1,0 +1,10 @@
+"use strict";
+require('node_modules/jquery/dist/jquery.min.js');
+require('node_modules/bootstrap/dist/js/bootstrap.min.js');
+require('node_modules/zone.js/dist/zone.min.js');
+require('node_modules/reflect-metadata/Reflect.js');
+var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
+var module_1 = require('app/module');
+var core_1 = require('@angular/core');
+core_1.enableProdMode();
+platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(module_1.AppModule);

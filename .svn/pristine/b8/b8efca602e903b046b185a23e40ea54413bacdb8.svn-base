@@ -1,0 +1,11 @@
+﻿@default-color: #C1282D;
+
+
+@xs-width-max: 543px;
+@sm-width-min: 544px;
+@sm-width-max: 767px;
+@md-width-min: 768px;
+@md-width-max: 991px;
+@lg-width-min: 992px;
+@lg-width-max: 1199px;
+@xl-width-min: 1200px;

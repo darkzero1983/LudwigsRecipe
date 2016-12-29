@@ -1,0 +1,60 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var services_1 = require('app/services');
+var models_1 = require('app/models');
+var RecipeDetailComponent = (function () {
+    function RecipeDetailComponent(route, router, recipeService) {
+        this.route = route;
+        this.router = router;
+        this.recipeService = recipeService;
+        this.recipe = new models_1.RecipeDetailModel();
+    }
+    RecipeDetailComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.forEach(function (params) {
+            _this.id = +params['id'];
+            _this.recipeService
+                .getRecipeDetail(_this.id)
+                .then(function (recipe) { return _this.setRecipe(recipe); });
+        });
+    };
+    RecipeDetailComponent.prototype.setRecipe = function (newRecipe) {
+        this.recipe = newRecipe;
+        this.costumAmount = this.recipe.ingredientCount;
+        this.replaceContentNumbers();
+    };
+    RecipeDetailComponent.prototype.replaceContentNumbers = function () {
+        if (this.costumAmount == undefined) {
+            this.costumAmount = this.recipe.ingredientCount;
+        }
+        var match = this.recipe.content.match(/\bd n="([^"]*)"/g);
+        if (match != null) {
+            for (var n = 0; n < match.length; n++) {
+                var amount = Number(match[n].replace("d n=\"", "").replace("\"", ""));
+                if (!isNaN(amount)) {
+                    var parse = "<d n=\"" + amount + "\">[^>]*<\/d>";
+                    var re = new RegExp(parse, "g");
+                    this.recipe.content = this.recipe.content.replace(re, "<d n=\"" + amount + "\">" + (amount / this.recipe.ingredientCount * this.costumAmount).toFixed(2).toString().replace(".", ",").replace(",00", "") + "<\/d>");
+                }
+            }
+        }
+    };
+    RecipeDetailComponent = __decorate([
+        core_1.Component({
+            templateUrl: '/views/recipe/RecipeDetail.html'
+        }), 
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, services_1.RecipeService])
+    ], RecipeDetailComponent);
+    return RecipeDetailComponent;
+}());
+exports.RecipeDetailComponent = RecipeDetailComponent;

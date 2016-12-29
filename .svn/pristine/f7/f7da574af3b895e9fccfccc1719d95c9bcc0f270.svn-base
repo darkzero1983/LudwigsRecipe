@@ -1,0 +1,19 @@
+﻿import { Component } from '@angular/core'
+
+@Component({
+	template: `
+	<h1 class="headline">CMS</h1>
+
+	<ul class="nav nav-tabs">
+		<li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/CMS/Rezepte">Rezepte</a></li>
+		<li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/CMS/Kategorien">Kategorien</a></li>
+		<li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/CMS/Dashboard">Dashboard</a></li>
+	</ul>
+	<br>
+
+	<router-outlet></router-outlet>`
+})
+
+export class CmsTemplateComponent {
+
+}

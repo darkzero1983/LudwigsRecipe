@@ -1,0 +1,79 @@
+﻿import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { CmsService } from 'app/services';
+import { RecipeEditModel, IngredientModel, MeasurementModel, AuthorModel, SeoTagModel, IngredientListItemModel } from 'app/models';
+
+@Component({
+	templateUrl: '/views/cms/CmsRecipeEdit.html'
+})
+
+export class CmsRecipeEditComponent implements OnInit {
+	id: number;
+	successMessage: string;
+	errorMessage: string;
+	recipe: RecipeEditModel = new RecipeEditModel();
+	SelectAbleHours: number[];
+	SelectAbleMinuts: number[];
+	SelectAbleIngerdients: IngredientModel[];
+	SelectAbleMeasurements: MeasurementModel[];
+	SelectAbleAuthors: AuthorModel[];
+	SelectAbleSeoTags: SeoTagModel[];
+
+	constructor(
+		private route: ActivatedRoute,
+		private router: Router,
+		private cmsService: CmsService
+	) {
+		this.SelectAbleHours = new Array<number>();
+		for (var i = 0; i <= 59; i++) {
+			this.SelectAbleHours.push(i);
+		}
+
+		this.SelectAbleMinuts = new Array<number>();
+		for (var i = 0; i <= 50; i = i + 10) {
+			this.SelectAbleMinuts.push(i);
+		}
+	}
+
+	ngOnInit(): void {
+		this.cmsService.getIngredients().then(ingredients => this.SelectAbleIngerdients = ingredients);
+		this.cmsService.getMeasurements().then(measurements => this.SelectAbleMeasurements = measurements);
+		this.cmsService.getAuthors().then(authors => this.SelectAbleAuthors = authors);
+		this.cmsService.getSeoTags().then(seos => this.SelectAbleSeoTags = seos);
+
+		this.route.params.forEach((params: Params) => {
+			this.id = +params['id'];
+			this.cmsService.getRecipeEdit(this.id).then(recipe => this.setRecipe(recipe));
+		});
+
+
+	}
+
+	setRecipe(newRecipe: RecipeEditModel) {
+		this.recipe = newRecipe;
+	}
+
+	addIngredient() {
+
+		if (this.recipe.ingredientList == null) {
+			this.recipe.ingredientList = new Array<IngredientListItemModel>();
+		}
+		var ingredientListItem: IngredientListItemModel = new IngredientListItemModel();
+		ingredientListItem.id = 0;
+		ingredientListItem.amount = 1;
+		ingredientListItem.ingredientId = 0;
+		ingredientListItem.ingredientName = "";
+		ingredientListItem.measurementId = 0;
+		ingredientListItem.measurementName = "";
+		this.recipe.ingredientList.push(ingredientListItem);
+	}
+
+	isAuthorSelected(id: string) {
+		return (this.recipe.authors.filter(x => x.id == id).length > 0);
+	}
+
+	isSeoTagSelected(id: number) {
+		return (this.recipe.seoTags.filter(x => x.id == id).length > 0);
+	}
+}

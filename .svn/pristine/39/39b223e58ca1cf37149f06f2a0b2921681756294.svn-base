@@ -1,0 +1,4 @@
+"use strict";
+class ResetPasswordModel {
+}
+exports.ResetPasswordModel = ResetPasswordModel;

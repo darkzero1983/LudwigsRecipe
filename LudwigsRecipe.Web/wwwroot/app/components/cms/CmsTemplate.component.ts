@@ -1,0 +1,29 @@
+﻿import { Component } from '@angular/core'
+import { GlobalVariables } from 'app/global';
+
+
+@Component({
+	template: `
+	<div class="alert alert-success navbar-fixed-top" role="alert" [hidden]="!globalVariables.requestResult.successMessage">{{globalVariables.requestResult.successMessage}}</div>
+	<div class="alert alert-danger navbar-fixed-top" role="alert" [hidden]="!globalVariables.requestResult.errorMessage">{{globalVariables.requestResult.errorMessage}}</div>
+
+	<h1 class="headline">CMS</h1>
+	
+	<ul class="nav nav-tabs">
+		<li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/CMS/Rezepte">Rezepte</a></li>
+		<li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/CMS/Kategorien">Kategorien</a></li>
+		<li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/CMS/Zutaten">Zustaten</a></li>
+		<li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/CMS/Einheiten">Einheiten</a></li>
+		<!--<li class="nav-item"><a class="nav-link" routerLinkActive="active" routerLink="/CMS/Dashboard">Dashboard</a></li>-->
+	</ul>
+	<br>
+
+	<router-outlet></router-outlet>`
+})
+
+export class CmsTemplateComponent {
+	constructor(
+		private globalVariables: GlobalVariables
+	) {
+	}
+}

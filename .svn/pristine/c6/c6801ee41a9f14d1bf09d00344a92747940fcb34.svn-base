@@ -1,0 +1,338 @@
+﻿@import "../includes.less";
+
+input[type="checkbox"] {
+	-webkit-user-select: none; /* Chrome all / Safari all */
+	-moz-user-select: none; /* Firefox all */
+	-ms-user-select: none; /* IE 10+ */
+	user-select: none; /* Likely future */
+}
+
+.content-body {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.headline {
+	color: @default-color;
+	font-size: 34px;
+	margin-bottom: 15px;
+	font-weight: bold;
+	text-shadow: 1px 1px #D6D6D6;
+}
+
+.sub-headline {
+	color: @default-color;
+	font-size: 24px;
+	border-bottom: 1px solid @default-color;
+}
+
+htlm, body {
+	margin: 0;
+	padding: 0;
+}
+
+.checkbox input[type="checkbox"] {
+	margin-left: 0;
+}
+
+input[type=text], textarea {
+	/* Remove First */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+ul, ol {
+	margin-left: 0;
+}
+
+ol.red-number li {
+	color: @default-color;
+
+	span {
+		color: #373a3c;
+	}
+}
+
+.no-number {
+	list-style-type: none;
+}
+
+html {
+	overflow: -moz-scrollbars-vertical;
+	overflow: scroll;
+}
+
+body {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+
+.row {
+	margin-left: 0;
+	margin-right: 0;
+	margin-bottom: 5px;
+}
+
+.hide {
+	display: none;
+}
+
+.field-validation-error {
+	color: #ff6a00;
+}
+
+.multi-select-box {
+	overflow-x: hidden;
+	overflow-y: auto;
+
+	input {
+		height: 22px;
+		width: 22px;
+		display: block;
+		float: left;
+		margin-right: 3px;
+	}
+
+	label {
+		margin-top: 0;
+		display: block;
+		float: left;
+		width: ~"calc(100% - 30px)";
+		white-space: nowrap;
+	}
+
+	.sub-select {
+		input {
+			margin-left: 25px;
+		}
+
+		label {
+			width: ~"calc(100% - 55px)";
+		}
+	}
+}
+
+.no-padding {
+	padding-top: 0 !important;
+	padding-right: 0 !important;
+	padding-bottom: 0 !important;
+	padding-left: 0 !important;
+}
+
+.default-color {
+	color: @default-color;
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: normal;
+}
+
+.form-inline .form-control {
+	width: 100%;
+}
+
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.text-left {
+	text-align: left !important;
+}
+
+.text-center {
+	text-align: center !important;
+}
+
+.text-right {
+	text-align: right !important;
+}
+
+.body-content {
+	padding: 0 10px;
+}
+
+.bordered-box {
+	border: 1px solid #c1282d;
+	border-radius: 5px;
+
+	h2 {
+		background-color: #c1282d;
+		color: #FFFFFF;
+		font-size: 20px;
+		padding: 5px;
+	}
+}
+
+
+
+.relation-bordered-box {
+	padding-left: 0;
+	display: inline-block;
+	float: none;
+	vertical-align: top;
+
+	h2 {
+		height: 37px;
+
+		.c-input {
+			margin-top: -10px;
+			padding-left: 27px;
+			display: inline-block;
+
+			.c-indicator {
+				margin-top: -16px;
+				margin-left: 0px;
+			}
+		}
+
+		.category-name {
+			margin-top: 5px;
+			line-height: 18px;
+			display: inline-block;
+			white-space: nowrap;
+			overflow: hidden;
+			width: ~"calc(100% - 36px)";
+		}
+	}
+
+	.c-indicator {
+		margin-left: 4px;
+	}
+
+	.subcategory-name {
+		line-height: 20px;
+		display: inline-block;
+		padding-left: 37px;
+		margin-top: -4px;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+
+	hr {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+}
+
+.ng-valid[required] {
+	border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid {
+	border-left: 5px solid #a94442; /* red */
+}
+
+.c-indicator {
+	border: 1px solid #808080;
+	width: 28px;
+	height: 28px;
+}
+
+.c-input > input:checked ~ .c-indicator {
+	background-color: #42A948;
+}
+
+
+
+.gu-mirror {
+	position: fixed !important;
+	margin: 0 !important;
+	z-index: 9999 !important;
+	opacity: 0.8;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+	filter: alpha(opacity=80);
+}
+
+.gu-hide {
+	display: none !important;
+}
+
+.gu-unselectable {
+	-webkit-user-select: none !important;
+	-moz-user-select: none !important;
+	-ms-user-select: none !important;
+	user-select: none !important;
+}
+
+.gu-transit {
+	opacity: 0.2;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+	filter: alpha(opacity=20);
+	background-color: #D6D6D6;
+}
+
+.ingredient-table {
+	input, select {
+		font-size: 11px;
+	}
+
+	.btn-danger {
+		line-height: 13px;
+	}
+}
+
+.category-buttons {
+	text-align: right;
+}
+
+.page-link {
+	cursor: pointer;
+}
+
+.recipe-detail-menu {
+	display: inline-block;
+	color: #C1282D;
+	padding: 2px 10px;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 9px;
+	background-color: #f7f7f9;
+	border: 1px solid #ddd;
+
+	a, a:hover, a:visited, a:focus {
+		color: #C1282D;
+		text-decoration: none;
+	}
+}
+
+.dropdown
+{
+	cursor:pointer;
+}

@@ -1,0 +1,8 @@
+﻿@import "../includes.less";
+
+@media (min-width: @md-width-min) and (max-width: @md-width-max) {
+	.container
+	{
+		max-width:@md-width-max;
+	}
+}

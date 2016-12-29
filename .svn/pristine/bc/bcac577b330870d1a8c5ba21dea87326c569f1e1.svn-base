@@ -1,0 +1,37 @@
+﻿using LudwigsRecipe.Service.Services.Recipe;
+using LudwigsRecipe.Service.Models.Recipe;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LudwigsRecipe.Web.Api.Recipe
+{
+
+	[Route("api/cms/[controller]")]
+	public class RecipesController : Controller
+	{
+		#region ctor
+		private readonly IRecipeService _recipeService;
+
+		public RecipesController(IRecipeService recipeService)
+		{
+			_recipeService = recipeService;
+		}
+		#endregion
+
+		// GET: api/RecipeOverview
+		[HttpGet]
+		public RecipeOverviewViewModel Get(int page)
+		{
+			RecipeOverviewViewModel recipes = null;
+			if (page == 0)
+			{
+				page = 1;
+			}
+			if(User.IsInRole("Admin") || User.IsInRole("Author"))
+			{
+				recipes = _recipeService.LoadRecipes(page);
+			}
+
+			return recipes;
+		}
+	}
+}

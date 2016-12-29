@@ -1,0 +1,17 @@
+{
+    "dependencies": {
+        "DarkZero.Core": "1.0.1-*",
+        "LudwigsRecipe.Data": "1.0.1-*",
+        "MailKit": "1.10.0",
+        "NETStandard.Library": "1.6.1"
+    },
+	"frameworks": {
+		"netcoreapp1.0": {
+			"imports": [
+				"dotnet5.6",
+				"portable-net45+win8"
+			]
+		}
+	},
+	"version": "1.0.1-*"
+}

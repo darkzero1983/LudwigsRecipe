@@ -1,0 +1,34 @@
+﻿import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { RecipeService } from 'app/services';
+import { RecipeEditModel } from 'app/models';
+
+@Component({
+	templateUrl: '/views/cms/CmsRecipeEdit.html'
+})
+
+export class CmsRecipeEditComponent implements OnInit {
+	id: number;
+	successMessage: string;
+	errorMessage: string;
+	recipe: RecipeEditModel = new RecipeEditModel();
+
+	constructor(
+		private route: ActivatedRoute,
+		private router: Router,
+		private recipeService: RecipeService
+	) {
+	}
+
+	ngOnInit(): void {
+		this.route.params.forEach((params: Params) => {
+			this.id = +params['id'];
+			this.recipeService.getRecipeEdit(this.id).then(recipe => this.setRecipe(recipe));
+		});
+	}
+
+	setRecipe(newRecipe: RecipeEditModel) {
+		this.recipe = newRecipe;
+	}
+}

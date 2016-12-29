@@ -1,0 +1,65 @@
+/// <binding />
+"use strict";
+
+const gulp = require("gulp");
+const less = require("gulp-less");
+const concatCss = require('gulp-concat-css');
+const watch = require("gulp-watch");
+const tslint = require('gulp-tslint');;
+const del = require("del");
+const systemjsBuilder = require('systemjs-builder');
+const browserify = require('gulp-browserify');
+const concat = require('gulp-concat');
+
+gulp.task('bundle:js-manuell', function () {
+	var builder = new systemjsBuilder('', './Scripts/system.config.js');
+	return builder.buildStatic('wwwroot/app/main.js', 'wwwroot/bundle/app.min.js', { minify: true });
+});
+
+gulp.task('bundle:js', function () {
+	return watch('wwwroot/app/**/*.ts', function () {
+		var builder = new systemjsBuilder('', './Scripts/system.config.js');
+		return builder.buildStatic('wwwroot/app/main.js', 'wwwroot/bundle/app.min.js', { minify: true });
+	});
+});
+
+gulp.task('cms-module-bundle', function() {
+	var builder = new systemjsBuilder('', './Scripts/system.config.js');
+	return builder.buildStatic('wwwroot/app/module/cms.module.js', 'wwwroot/bundle/cms.min.js', { minify: true });
+});
+
+gulp.task('bundle:css', function () {
+	return watch('CSS/**/*.less', function () {
+		gulp.src('CSS/**/*.less')
+			.pipe(less())
+			.pipe(gulp.dest('wwwroot/css/'));
+		gulp.src([
+			'node_modules/bootstrap/dist/css/bootstrap.css',
+			'CSS/bootstrap/bootstrap-datepicker3.min.css',
+			'wwwroot/css/**/*.css'
+		])
+			.pipe(concatCss("site.min.css"))
+			.pipe(gulp.dest('wwwroot/bundle/'));
+	});
+});
+
+gulp.task("libs", () => {
+	return gulp
+			.src([
+					'core-js/client/shim.min.js',
+					'systemjs/dist/system-polyfills.js',
+					'systemjs/dist/system.src.js',
+					'reflect-metadata/Reflect.js',
+					'reflect-metadata/reflect-metadata.d.ts',
+					'reflect-metadata/Reflect.d.ts',
+					'rxjs/**/*.js',
+					'zone.js/dist/**/*.js',
+					'@angular/**/*.js',
+					'bootstrap/dist/js/bootstrap.min.js',
+					'jquery/dist/jquery.min.js',
+					'traceur/dist/commonjs/**/*.js',
+					'browserify/**/*.js',
+					
+			], { cwd: "node_modules/**" }) /* Glob required here. */
+			.pipe(gulp.dest("wwwroot/node_modules"));
+});

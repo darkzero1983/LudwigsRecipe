@@ -1,0 +1,76 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+require('./rxjs-extensions');
+const core_1 = require('@angular/core');
+const platform_browser_1 = require('@angular/platform-browser');
+const forms_1 = require('@angular/forms');
+const http_1 = require('@angular/http');
+const router_1 = require('@angular/router');
+const common_1 = require('@angular/common');
+const components_1 = require('app/components');
+const services_1 = require('app/services');
+const components_2 = require('app/components');
+const directives_1 = require('app/directives');
+const pipes_1 = require('app/pipes');
+let AppModule = class AppModule {
+};
+AppModule = __decorate([
+    core_1.NgModule({
+        imports: [
+            platform_browser_1.BrowserModule,
+            forms_1.FormsModule,
+            http_1.HttpModule,
+            router_1.RouterModule.forRoot([
+                { path: '**', component: components_2.ErrorComponent }
+            ])
+        ],
+        providers: [
+            services_1.AccountService,
+            services_1.CmsService,
+            services_1.NavigationService,
+            services_1.RecipeService,
+            services_1.SearchService,
+            { provide: common_1.APP_BASE_HREF, useValue: '/' }
+        ],
+        declarations: [
+            components_1.AppComponent,
+            components_2.AccountConfirmEmailComponent,
+            components_2.AccountDisplayEmailComponent,
+            components_2.AccountForgotPasswordComponent,
+            components_2.AccountForgotPasswordConfirmComponent,
+            components_2.AccountLoginComponent,
+            components_2.AccountLogoutComponent,
+            components_2.AccountRegisterComponent,
+            components_2.AccountResetPasswordComponent,
+            components_2.AccountResetPasswordConfirmComponent,
+            components_2.RecipeDetailComponent,
+            components_2.RecipeOverviewComponent,
+            components_2.AboutComponent,
+            components_2.ContactComponent,
+            components_2.EmptyComponent,
+            components_2.CmsCategoryEditComponent,
+            components_2.CmsDashboardComponent,
+            components_2.CmsRecipeOverviewComponent,
+            components_2.CmsRecipeEditComponent,
+            components_2.CmsTemplateComponent,
+            components_2.ErrorComponent,
+            directives_1.NavigationMobileDirective,
+            directives_1.NavigationDesktopDirective,
+            directives_1.RecipeIngredientsDirective,
+            directives_1.RecipeOverviewItemDirective,
+            directives_1.PagingDirective,
+            pipes_1.NumberFormatPipe
+        ],
+        bootstrap: [components_1.AppComponent]
+    }), 
+    __metadata('design:paramtypes', [])
+], AppModule);
+exports.AppModule = AppModule;

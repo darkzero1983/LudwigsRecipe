@@ -1,0 +1,8 @@
+"use strict";
+const models_1 = require('app/models');
+class RecipeOverviewModel {
+    constructor() {
+        this.paging = new models_1.PagingModel();
+    }
+}
+exports.RecipeOverviewModel = RecipeOverviewModel;

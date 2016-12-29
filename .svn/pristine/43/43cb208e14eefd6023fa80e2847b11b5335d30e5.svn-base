@@ -1,0 +1,14 @@
+﻿<h1 class="headline">{{headline}}</h1>
+
+<div class="alert alert-success navbar-fixed-top" role="alert" [hidden]="!successMessage">{{successMessage}}</div>
+<div class="alert alert-danger navbar-fixed-top" role="alert" [hidden]="!errorMessage">{{errorMessage}}</div>
+
+
+
+<div class="navbar navbar-default navbar-fixed-bottom navbar-for-spans">
+	<div class="container">
+		<div class="navbar-header">
+			<input type="submit" class="btn btn-success" value="Speichern">
+		</div>
+	</div>
+</div>

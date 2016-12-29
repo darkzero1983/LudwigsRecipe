@@ -1,0 +1,74 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var services_1 = require('app/services');
+var models_1 = require('app/models');
+var CmsRecipeOverviewComponent = (function () {
+    function CmsRecipeOverviewComponent(route, router, recipeService) {
+        this.route = route;
+        this.router = router;
+        this.recipeService = recipeService;
+        this.recipeViewModel = new models_1.RecipeOverviewModel();
+    }
+    CmsRecipeOverviewComponent.prototype.ngOnInit = function () {
+        this.loadRecipes(1);
+    };
+    CmsRecipeOverviewComponent.prototype.loadRecipes = function (page) {
+        var _this = this;
+        if (page < 1) {
+            return;
+        }
+        if (this.recipeViewModel.paging.maxPage > 0 && page > this.recipeViewModel.paging.maxPage) {
+            return;
+        }
+        this.recipeService.getRecipes(page).then(function (recipes) { return _this.recipesLoaded(recipes); });
+    };
+    CmsRecipeOverviewComponent.prototype.recipesLoaded = function (data) {
+        this.recipeViewModel = data;
+        this.recipeViewModel.paging.showPaging = false;
+        this.recipeViewModel.paging.showPreview = true;
+        this.recipeViewModel.paging.showNext = true;
+        if (data.paging.maxPage > 1) {
+            this.recipeViewModel.paging.showPaging = true;
+            this.recipeViewModel.paging.pages = new Array();
+            var minPage = data.paging.currentPage - 2;
+            var maxPage = data.paging.currentPage + 2;
+            if (data.paging.currentPage == 1) {
+                maxPage = maxPage + 2;
+            }
+            if (data.paging.currentPage == 2) {
+                maxPage = maxPage + 1;
+            }
+            if ((data.paging.currentPage + 1) > data.paging.maxPage) {
+                minPage = minPage - 1;
+            }
+            if ((data.paging.currentPage + 2) > data.paging.maxPage) {
+                minPage = minPage - 1;
+            }
+            this.recipeViewModel.paging.showPreview = (data.paging.currentPage != 1);
+            this.recipeViewModel.paging.showNext = (data.paging.currentPage != data.paging.maxPage);
+            for (var n = 1; n <= data.paging.maxPage; n++) {
+                if (n >= minPage && n <= maxPage) {
+                    this.recipeViewModel.paging.pages.push(n);
+                }
+            }
+        }
+    };
+    CmsRecipeOverviewComponent = __decorate([
+        core_1.Component({
+            templateUrl: '/views/cms/CmsRecipeOverview.html'
+        }), 
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, services_1.RecipeService])
+    ], CmsRecipeOverviewComponent);
+    return CmsRecipeOverviewComponent;
+}());
+exports.CmsRecipeOverviewComponent = CmsRecipeOverviewComponent;

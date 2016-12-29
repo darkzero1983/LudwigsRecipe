@@ -1,0 +1,113 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+require('../rxjs-extensions');
+var core_1 = require('@angular/core');
+var platform_browser_1 = require('@angular/platform-browser');
+var forms_1 = require('@angular/forms');
+var http_1 = require('@angular/http');
+var router_1 = require('@angular/router');
+var common_1 = require('@angular/common');
+var components_1 = require('app/components');
+var services_1 = require('app/services');
+var components_2 = require('app/components');
+var directives_1 = require('app/directives');
+var pipes_1 = require('app/pipes');
+var AppModule = (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                router_1.RouterModule.forRoot([
+                    { path: 'Anmelden', component: components_2.AccountLoginComponent },
+                    { path: 'Abmelden', component: components_2.AccountLogoutComponent },
+                    { path: 'Registrieren', component: components_2.AccountRegisterComponent },
+                    { path: 'Registrieren/Schritt-2', component: components_2.AccountDisplayEmailComponent },
+                    { path: 'Registrierung/Abgeschlossen', component: components_2.AccountConfirmEmailComponent },
+                    { path: 'Passwort/Vergessen', component: components_2.AccountForgotPasswordComponent },
+                    { path: 'Passwort/Zuruecksetzen', component: components_2.AccountForgotPasswordConfirmComponent },
+                    { path: 'Registrierung/Passwort/Zuruecksetzen', component: components_2.AccountResetPasswordComponent },
+                    { path: 'Registrierung/Passwort/Zuruecksetzen/Erfolgreich', component: components_2.AccountResetPasswordConfirmComponent },
+                    { path: 'Rezept/:url/:id', component: components_2.RecipeDetailComponent },
+                    {
+                        path: 'Rezepte/Uebersicht', component: components_2.RecipeOverviewComponent,
+                        data: { cms: false }
+                    },
+                    {
+                        path: 'Rezepte/:categoryUrl', component: components_2.RecipeOverviewComponent,
+                        data: { cms: false }
+                    },
+                    {
+                        path: 'Rezepte/:categoryUrl/:subCategoryUrl', component: components_2.RecipeOverviewComponent,
+                        data: { cms: false }
+                    },
+                    { path: 'Impressum', component: components_2.AboutComponent },
+                    { path: 'Kontakt', component: components_2.ContactComponent },
+                    {
+                        path: 'CMS', component: components_2.CmsDashboardComponent,
+                        canActivate: [services_1.AccountService],
+                        data: { roles: ['author', 'admin'] }
+                    },
+                    {
+                        path: 'CMS/Rezepte', component: components_2.RecipeOverviewComponent,
+                        canActivate: [services_1.AccountService],
+                        data: { roles: ['author', 'admin'], cms: true }
+                    },
+                    {
+                        path: 'CMS/Rezept/:id', component: components_2.RecipeEditComponent,
+                        canActivate: [services_1.AccountService],
+                        data: { roles: ['author', 'admin'] }
+                    },
+                    { path: '', redirectTo: '/Rezepte/Uebersicht', pathMatch: 'full' },
+                    { path: '**', component: components_2.RecipeOverviewComponent }
+                ])
+            ],
+            providers: [
+                services_1.AccountService,
+                services_1.NavigationService,
+                services_1.RecipeService,
+                services_1.SearchService,
+                { provide: common_1.APP_BASE_HREF, useValue: '/' }
+            ],
+            declarations: [
+                components_1.AppComponent,
+                components_2.AccountConfirmEmailComponent,
+                components_2.AccountDisplayEmailComponent,
+                components_2.AccountForgotPasswordComponent,
+                components_2.AccountForgotPasswordConfirmComponent,
+                components_2.AccountLoginComponent,
+                components_2.AccountLogoutComponent,
+                components_2.AccountRegisterComponent,
+                components_2.AccountResetPasswordComponent,
+                components_2.AccountResetPasswordConfirmComponent,
+                components_2.RecipeEditComponent,
+                components_2.CmsDashboardComponent,
+                components_2.RecipeDetailComponent,
+                components_2.RecipeOverviewComponent,
+                components_2.AboutComponent,
+                components_2.ContactComponent,
+                directives_1.NavigationMobileDirective,
+                directives_1.NavigationDesktopDirective,
+                directives_1.RecipeIngredientsDirective,
+                directives_1.RecipeOverviewItemDirective,
+                directives_1.PagingDirective,
+                pipes_1.NumberFormatPipe
+            ],
+            bootstrap: [components_1.AppComponent]
+        }), 
+        __metadata('design:paramtypes', [])
+    ], AppModule);
+    return AppModule;
+}());
+exports.AppModule = AppModule;

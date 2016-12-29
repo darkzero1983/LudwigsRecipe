@@ -1,0 +1,121 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
+var router_1 = require('@angular/router');
+require('rxjs/add/operator/toPromise');
+var models_1 = require('app/models');
+var AccountService = (function () {
+    function AccountService(http, router) {
+        this.http = http;
+        this.router = router;
+        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        this.userInformations = new models_1.UserInformationModel();
+    }
+    AccountService.prototype.canActivate = function (route, state) {
+        var _this = this;
+        var that = this;
+        return this.http.get('/api/account/GetUserInformation', { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .then(function (result) { return _this.userInformations = result; })
+            .then(function (result) {
+            var roles = route.data["roles"];
+            for (var _i = 0, roles_1 = roles; _i < roles_1.length; _i++) {
+                var role = roles_1[_i];
+                if (that.isUserInGroup(role)) {
+                    return true;
+                }
+            }
+            that.router.navigate(['/']);
+            return false;
+        })
+            .catch(this.handleError);
+    };
+    AccountService.prototype.isUserInGroup = function (group) {
+        switch (group) {
+            case "author":
+                return this.userInformations.isAuthor;
+            case "admin":
+                return this.userInformations.isAdmin;
+        }
+        return false;
+    };
+    AccountService.prototype.updateUserInformations = function () {
+        var _this = this;
+        this.http.get('/api/account/GetUserInformation', { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .then(function (result) { return _this.userInformations = result; })
+            .catch(this.handleError);
+    };
+    AccountService.prototype.login = function (data) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        var myData = JSON.stringify(data);
+        var result;
+        result = this.http.post('/api/account/Login', myData, { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+        this.updateUserInformations();
+        return result;
+    };
+    AccountService.prototype.logout = function () {
+        var _this = this;
+        return this.http.post('/api/account/Logout', { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .then(function (result) { return _this.userInformations.isAdmin = false; })
+            .then(function (result) { return _this.userInformations.isAuthenticated = false; })
+            .then(function (result) { return _this.userInformations.isAuthor = false; })
+            .then(function (result) { return _this.userInformations.isFriend = false; })
+            .then(function (result) { return _this.userInformations.userName = null; })
+            .catch(this.handleError);
+    };
+    AccountService.prototype.register = function (data) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        var myData = JSON.stringify(data);
+        return this.http.post('/api/account/Register', myData, { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    AccountService.prototype.forgotPassword = function (data) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        var myData = JSON.stringify(data);
+        return this.http.post('/api/account/ForgotPassword', myData, { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    AccountService.prototype.resetPassword = function (data) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        var myData = JSON.stringify(data);
+        return this.http.post('/api/account/ResetPassword', myData, { headers: this.headers })
+            .toPromise()
+            .then(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    AccountService.prototype.handleError = function (error) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
+    };
+    AccountService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http, router_1.Router])
+    ], AccountService);
+    return AccountService;
+}());
+exports.AccountService = AccountService;

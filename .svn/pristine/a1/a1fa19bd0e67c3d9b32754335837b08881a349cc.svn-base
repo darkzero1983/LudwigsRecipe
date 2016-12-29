@@ -1,0 +1,29 @@
+﻿"use strict";
+
+const gulp = require("gulp");
+const less = require("gulp-less");
+const tslint = require('gulp-tslint');;
+const del = require("del");
+const systemjsBuilder = require('systemjs-builder');
+
+gulp.watch('CSS/**/*.less', ['less']);
+gulp.watch('App/**/*.ts', ['bundle:js']);
+gulp.watch('Scripts/**/*.js', ['bundle:js']);
+
+
+gulp.task('bundle:js', function () {
+	var builder = new systemjsBuilder('', './Scripts/system.config.js');
+	return builder.buildStatic('App', 'wwwroot/bundle/app.min.js')
+		.then(function () {
+			return del(['wwwroot/dist/js/**/*', '!wwwroot/dist/js/app.min.js']);
+		})
+		.catch(function (err) {
+			console.error('>>> [systemjs-builder] Bundling failed'.bold.green, err);
+		});
+});
+
+gulp.task("less", function () {
+	return gulp.src('CSS/**/*.less')
+				.pipe(less())
+				.pipe(gulp.dest('wwwroot/css/'));
+});

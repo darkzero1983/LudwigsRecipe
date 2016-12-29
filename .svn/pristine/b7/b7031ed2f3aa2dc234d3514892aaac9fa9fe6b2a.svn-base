@@ -1,0 +1,9 @@
+"use strict";
+var paging_model_1 = require('../shared/paging.model');
+var RecipeOverviewModel = (function () {
+    function RecipeOverviewModel() {
+        this.paging = new paging_model_1.PagingModel();
+    }
+    return RecipeOverviewModel;
+}());
+exports.RecipeOverviewModel = RecipeOverviewModel;

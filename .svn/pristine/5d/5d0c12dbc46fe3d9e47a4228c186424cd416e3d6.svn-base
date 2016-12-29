@@ -1,0 +1,9 @@
+"use strict";
+const models_1 = require('app/models');
+class RecipeDetailModel {
+    constructor() {
+        this.ingredients = new Array();
+        this.measurement = new models_1.MeasurementModel();
+    }
+}
+exports.RecipeDetailModel = RecipeDetailModel;

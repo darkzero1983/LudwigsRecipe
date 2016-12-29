@@ -1,0 +1,8 @@
+﻿export class IngredientListItemModel {
+	id: number;
+	amount: number;
+	measurementId: number;
+	measurementName: string;
+	ingredientId: number;
+	ingredientName: string;
+}

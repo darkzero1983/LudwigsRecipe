@@ -1,0 +1,6 @@
+﻿export class FormResultModel {
+	RequestSuccess: boolean;
+	NewId: number;
+	SuccessMessage: string;
+	ErrorMessage: string;
+}

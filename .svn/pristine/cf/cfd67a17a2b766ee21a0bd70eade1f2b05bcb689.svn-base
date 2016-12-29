@@ -1,0 +1,29 @@
+﻿@page {
+	size: A4;
+	margin: 10mm 10mm 10mm 10mm;
+}
+
+@media print, embossed {
+	body {
+		font-size: 12px !important;
+	}
+
+	h2 {
+		font-size: 16px !important;
+	}
+	
+	.navbar, .navbar-search, .recipe-detail-menu, .mobile-menu, .nav-delimiter, .hide-on-print, .breadcrumb, footer {
+		display: none !important;
+	}
+
+	.printing-left-side {
+		width: 30%;
+		float: left;
+		margin-right: 5%;
+	}
+
+	.printing-right-side {
+		width: 65%;
+		float: left;
+	}
+}

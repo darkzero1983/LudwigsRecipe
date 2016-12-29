@@ -1,0 +1,65 @@
+﻿import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { RecipeService } from 'app/services';
+import { RecipeEditModel, IngredientModel, MeasurementModel, AuthorModel, SeoTagModel, IngredientListItemModel } from 'app/models';
+
+@Component({
+	templateUrl: '/views/cms/CmsRecipeEdit.html'
+})
+
+export class CmsRecipeEditComponent implements OnInit {
+	id: number;
+	successMessage: string;
+	errorMessage: string;
+	recipeViewModel: RecipeEditModel = new RecipeEditModel();
+	SelectAbleHours: number[];
+	SelectAbleMinuts: number[];
+	SelectAbleIngerdients: IngredientModel[];
+	SelectAbleMeasurements: MeasurementModel[];
+	SelectAbleAuthors: AuthorModel[];
+	SelectAbleSeoTags: SeoTagModel[];
+
+	constructor(
+		private route: ActivatedRoute,
+		private router: Router,
+		private recipeService: RecipeService
+	) {
+		this.SelectAbleHours = new Array<number>();
+		for (var i = 0; i <= 59; i++) {
+			this.SelectAbleHours.push(i);
+		}
+
+		this.SelectAbleMinuts = new Array<number>();
+		for (var i = 0; i <= 50; i = i + 10) {
+			this.SelectAbleMinuts.push(i);
+		}
+	}
+
+	ngOnInit(): void {
+		this.route.params.forEach((params: Params) => {
+			this.id = +params['id'];
+			this.recipeService.getRecipeEdit(this.id).then(recipe => this.setRecipe(recipe));
+		});
+	}
+
+	setRecipe(newRecipe: RecipeEditModel) {
+		this.recipeViewModel = newRecipe;
+	}
+
+	addIngredient() {
+
+		if (this.recipeViewModel.ingredientList == null) {
+			this.recipeViewModel.ingredientList = new Array<IngredientListItemModel>();
+		}
+		var ingredientListItem: IngredientListItemModel = new IngredientListItemModel();
+		ingredientListItem.id = 0;
+		ingredientListItem.amount = 1;
+		ingredientListItem.ingredientId = 0;
+		ingredientListItem.ingredientName = "";
+		ingredientListItem.measurementId = 0;
+		ingredientListItem.measurementName = "";
+		this.recipeViewModel.ingredientList.push(ingredientListItem);
+
+	}
+}

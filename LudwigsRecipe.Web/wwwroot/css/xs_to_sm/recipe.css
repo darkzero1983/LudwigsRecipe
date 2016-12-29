@@ -1,0 +1,30 @@
+@media (max-width: 767px) {
+  .headline {
+    font-size: 24px;
+  }
+  .teaser-image {
+    width: 117px;
+  }
+  .teaser-image img {
+    height: 80px;
+    width: 107px;
+  }
+  .recipe-overview-item {
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+  }
+  .recipe-overview-item .teaser-text {
+    width: calc(100% - 147px);
+  }
+  .recipe-overview-item .teaser-text .recipe-info {
+    margin-top: 10px;
+    font-size: 10px;
+  }
+  .recipe-detail-description {
+    margin-top: 10px;
+    font-style: italic;
+  }
+  .recipe-detail-content-text {
+    margin-top: 10px;
+  }
+}

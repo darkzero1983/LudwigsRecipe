@@ -1,0 +1,4 @@
+"use strict";
+class IngredientModel {
+}
+exports.IngredientModel = IngredientModel;

@@ -1,0 +1,7 @@
+"use strict";
+class PagingModel {
+    constructor() {
+        this.pages = new Array();
+    }
+}
+exports.PagingModel = PagingModel;

@@ -1,0 +1,12 @@
+﻿import { PagingModel } from '../shared/paging.model';
+import { RecipeOverviewRecipeModel } from './RecipeOverviewRecipe.model';
+
+export class RecipeOverviewModel {
+	title: string;
+	paging: PagingModel;
+	recipes: RecipeOverviewRecipeModel[];
+
+	constructor() {
+		this.paging = new PagingModel();
+	}
+}

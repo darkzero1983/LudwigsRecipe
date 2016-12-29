@@ -1,0 +1,136 @@
+﻿import '../rxjs-extensions';
+
+import { NgModule }      from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule }   from '@angular/forms';
+import { HttpModule }    from '@angular/http';
+import { RouterModule }  from '@angular/router';
+import { APP_BASE_HREF } from '@angular/common';
+
+import { AppComponent } from 'app/components';
+
+//Service
+import {
+	AccountService,
+	NavigationService,
+	RecipeService,
+	SearchService
+} from 'app/services';
+
+//Components
+import {
+	AccountConfirmEmailComponent,
+	AccountDisplayEmailComponent,
+	AccountForgotPasswordComponent,
+	AccountForgotPasswordConfirmComponent,
+	AccountLoginComponent,
+	AccountLogoutComponent,
+	AccountRegisterComponent,
+	AccountResetPasswordComponent,
+	AccountResetPasswordConfirmComponent,
+	RecipeEditComponent,
+	CmsDashboardComponent,
+	RecipeDetailComponent,
+	RecipeOverviewComponent,
+	AboutComponent,
+	ContactComponent
+} from 'app/components';
+
+//Directives
+import {
+	NavigationMobileDirective,
+	NavigationDesktopDirective,
+	RecipeIngredientsDirective,
+	RecipeOverviewItemDirective,
+	PagingDirective
+} from 'app/directives';
+
+//Pipes
+import {
+	NumberFormatPipe
+} from 'app/pipes';
+
+@NgModule({
+	imports: [
+		BrowserModule,
+		FormsModule,
+		HttpModule,
+		RouterModule.forRoot([
+			
+			{ path: 'Anmelden', component: AccountLoginComponent },
+			{ path: 'Abmelden', component: AccountLogoutComponent},
+			{ path: 'Registrieren', component: AccountRegisterComponent},
+			{ path: 'Registrieren/Schritt-2', component: AccountDisplayEmailComponent },
+			{ path: 'Registrierung/Abgeschlossen', component: AccountConfirmEmailComponent},
+			{ path: 'Passwort/Vergessen', component: AccountForgotPasswordComponent },
+			{ path: 'Passwort/Zuruecksetzen', component: AccountForgotPasswordConfirmComponent},
+			{ path: 'Registrierung/Passwort/Zuruecksetzen', component: AccountResetPasswordComponent},
+			{ path: 'Registrierung/Passwort/Zuruecksetzen/Erfolgreich', component: AccountResetPasswordConfirmComponent },
+			{ path: 'Rezept/:url/:id', component: RecipeDetailComponent },
+			{
+				path: 'Rezepte/Uebersicht', component: RecipeOverviewComponent,
+				data: { cms: false }
+			},
+			{
+				path: 'Rezepte/:categoryUrl', component: RecipeOverviewComponent,
+				data: { cms: false }
+			},
+			{
+				path: 'Rezepte/:categoryUrl/:subCategoryUrl', component: RecipeOverviewComponent,
+				data: { cms: false }
+			},
+			{ path: 'Impressum', component: AboutComponent},
+			{ path: 'Kontakt', component: ContactComponent },
+			{
+				path: 'CMS', component: CmsDashboardComponent,
+				canActivate: [AccountService],
+				data: { roles: ['author', 'admin'] }
+			},
+			{
+				path: 'CMS/Rezepte', component: RecipeOverviewComponent,
+				canActivate: [AccountService],
+				data: { roles: ['author', 'admin'], cms: true }
+			},
+			{
+				path: 'CMS/Rezept/:id', component: RecipeEditComponent,
+				canActivate: [AccountService],
+				data: { roles: ['author', 'admin'] }
+			},
+			{ path: '', redirectTo: '/Rezepte/Uebersicht', pathMatch: 'full' },
+			{ path: '**', component: RecipeOverviewComponent }
+		])
+	],
+	providers: [
+		AccountService,
+		NavigationService,
+		RecipeService,
+		SearchService,
+		{ provide: APP_BASE_HREF, useValue: '/' }
+	],
+	declarations: [
+		AppComponent,
+		AccountConfirmEmailComponent,
+		AccountDisplayEmailComponent,
+		AccountForgotPasswordComponent,
+		AccountForgotPasswordConfirmComponent,
+		AccountLoginComponent,
+		AccountLogoutComponent,
+		AccountRegisterComponent,
+		AccountResetPasswordComponent,
+		AccountResetPasswordConfirmComponent,
+		RecipeEditComponent,
+		CmsDashboardComponent,
+		RecipeDetailComponent,
+		RecipeOverviewComponent,
+		AboutComponent,
+		ContactComponent,
+		NavigationMobileDirective,
+		NavigationDesktopDirective,
+		RecipeIngredientsDirective,
+		RecipeOverviewItemDirective,
+		PagingDirective,
+		NumberFormatPipe
+	],
+	bootstrap: [AppComponent]
+})
+export class AppModule { }

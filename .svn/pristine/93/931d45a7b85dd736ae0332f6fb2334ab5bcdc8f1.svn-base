@@ -1,0 +1,12 @@
+"use strict";
+const models_1 = require('app/models');
+class RecipeEditModel {
+    constructor() {
+        this.ingredientList = new Array();
+        this.authors = new Array();
+        this.seoTags = new Array();
+        this.categories = new Array();
+        this.measurement = new models_1.MeasurementModel();
+    }
+}
+exports.RecipeEditModel = RecipeEditModel;

@@ -1,0 +1,59 @@
+﻿using LudwigsRecipe.Service.Services.Recipe;
+using LudwigsRecipe.Service.Models.Recipe;
+using System;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using LudwigsRecipe.Service.Models.Api;
+
+namespace LudwigsRecipe.Web.Api.CMS.Recipe
+{
+	[Authorize(Roles = "Admin, Author")]
+	[Route("api/CMS/Recipe/Save")]
+	public class RecipeSaveController : Controller
+	{
+		private readonly IRecipeService _recipeService;
+
+		public RecipeSaveController(IRecipeService recipeService)
+		{
+			_recipeService = recipeService;
+		}
+
+		[HttpPost]
+		public FormResult Post([FromBody]RecipeEditViewModel model)
+		{
+			FormResult result = new FormResult();
+			result.RequestSuccess = false;
+			if(model == null)
+			{
+				return result;
+			}
+
+			try
+			{
+				FormResult validationResult = IsModelValid(model);
+				if (!validationResult.RequestSuccess)
+				{
+					return validationResult;
+				}
+				result.NewId = model.Id;
+				_recipeService.SaveRecipeEditViewModel(model);
+				result.NewId = model.Id;
+				result.SuccessMessage = "Die Anpassungen wurden erfolgreich gespeichert";
+				result.RequestSuccess = true;
+			}
+			catch (Exception e)
+			{
+				result.ErrorMessage = "Beim Speichern ist ein Fehler aufgetreten:<br>" + e.Message;
+			}
+			return result;
+		}
+
+		private FormResult IsModelValid(RecipeEditViewModel model)
+		{
+			FormResult result = new FormResult();
+
+			result.RequestSuccess = true;
+			return result;
+		}
+	}
+}

@@ -1,0 +1,36 @@
+﻿import { Component, Input, OnChanges } from '@angular/core';
+import { IngredientListModel } from 'app/models';
+
+@Component({
+	selector: 'recipeingredients-directive',
+	templateUrl: '/views/directives/recipe/RecipeIngredients.html'
+})
+
+export class RecipeIngredientsDirective implements OnChanges {
+	costumAmount: number;
+	@Input() ingredients: Array<IngredientListModel>;
+	@Input() measurement: string;
+	@Input() amount: number;
+
+	ngOnChanges() {
+		if (this.amount != undefined) {
+			this.costumAmount = this.amount;
+		}
+
+	}
+
+	calculateAmount(value: number) {
+		return value / this.amount * this.costumAmount;
+	}
+
+	addCostumAmount() {
+		this.costumAmount = +this.costumAmount + +1;
+	}
+
+	subtractCostumAmount() {
+		if (this.costumAmount > 1)
+		{
+			this.costumAmount = +this.costumAmount - +1;
+		}
+	}
+}

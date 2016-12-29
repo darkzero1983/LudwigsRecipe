@@ -1,0 +1,46 @@
+var map = {
+	'app': 'App',
+	'rxjs': 'node_modules/rxjs',
+	'zonejs': 'node_modules/zone.js',
+	'reflect-metadata': 'node_modules/reflect-metadata',
+	'@angular': 'node_modules/@angular'
+};
+
+var packages = {
+	'app': { main: 'main', defaultExtension: 'js' },
+	'rxjs': { defaultExtension: 'js' },
+	'zonejs': { main: 'zone', defaultExtension: 'js' },
+	'reflect-metadata': { main: 'Reflect', defaultExtension: 'js' }
+};
+
+var packageNames = [
+  '@angular/common',
+  '@angular/compiler',
+  '@angular/core',
+  '@angular/http',
+  '@angular/forms',
+  '@angular/platform-browser',
+  '@angular/platform-browser-dynamic',
+  '@angular/router',
+  '@angular/router-deprecated',
+  '@angular/testing',
+  '@angular/upgrade',
+  'app/components',
+  'app/services',
+  'app/directives',
+  'app/pipes',
+  'app/models',
+  'app/module',
+  'app/routings'
+];
+
+packageNames.forEach(function (pkgName) {
+	packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
+});
+
+packages['@models'] = { main: '.js', defaultExtension: 'js' };
+
+System.config({
+	map: map,
+	packages: packages
+});

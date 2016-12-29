@@ -1,0 +1,16 @@
+﻿<h2>Zutaten</h2>
+<div class="row">
+	<div class="col-xs-8 no-padding">
+		für <input type="text" style="width:30px;display:inline-block;border:none;padding:0;text-align:center;" [(ngModel)]="costumAmount"> {{measurement}}
+	</div>
+	<div class="col-xs-4 no-padding text-right hide-on-print">
+		<i class="fa fa-minus-square-o" style="padding:5px 0px 5px 20px;cursor:pointer;" (click)="subtractCostumAmount();"></i>
+		<i class="fa fa-plus-square-o" style="padding:5px 0px 5px 20px;cursor:pointer;" (click)="addCostumAmount()"></i>
+	</div>
+</div>
+<table class="table table-striped recipe-detail-ingredients">
+	<tr *ngFor="let ingredient of ingredients">
+		<td class="text-right"><span *ngIf="ingredient.amount != 0">{{calculateAmount(ingredient.amount) | numberFormat : 2}}</span> {{ingredient.measurement}}</td>
+		<td class="text-left">{{ingredient.ingredient}}</td>
+	</tr>
+</table>
