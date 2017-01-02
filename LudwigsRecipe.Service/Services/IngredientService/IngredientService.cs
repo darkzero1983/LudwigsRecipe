@@ -28,6 +28,7 @@ namespace LudwigsRecipe.Service.Services.IngredientService
 				{
 					Id = ingredientData.Id,
 					Name = ingredientData.Name,
+					UsageCount = ingredientData.UsageCount
 				});
 			}
 

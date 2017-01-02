@@ -1,8 +1,13 @@
 ﻿using LudwigsRecipe.Data.DataModels.Ingredient;
 using LudwigsRecipe.Data.DBContext;
 using LudwigsRecipe.Data.DBContext.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using LudwigsRecipe.Data.DataModels.Recipe;
+using System;
+using LudwigsRecipe.Data.DataModels.Measurement;
+using LudwigsRecipe.Data.Helper;
 
 namespace LudwigsRecipe.Data.Repositories.IngredientRepository
 {
@@ -40,12 +45,15 @@ namespace LudwigsRecipe.Data.Repositories.IngredientRepository
 		{
 			List<IIngredientData> ingredients = new List<IIngredientData>();
 
+			List<IngredientList> dbIngredientLists = ctx.IngredientsLists.ToList();
 			List<Ingredient> dbIngredients = ctx.Ingredients.OrderBy(x => x.Name).ToList();
 			foreach (Ingredient dbIngredient in dbIngredients)
 			{
+				int count = dbIngredientLists.Where(x => x.Ingredient == dbIngredient).Count();
 				ingredients.Add(new IngredientData() { 
 					Id = dbIngredient.Id,
-					Name = dbIngredient.Name
+					Name = dbIngredient.Name,
+					UsageCount = count
 				});
 			}
 			return ingredients;

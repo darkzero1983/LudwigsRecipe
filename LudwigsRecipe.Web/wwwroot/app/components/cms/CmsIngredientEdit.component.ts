@@ -24,14 +24,17 @@ import { CmsService } from 'app/services';
 
 				<div class="row hidden-md-up"><div class="col-xs-12">Name</div></div>
 				<div class="col-xs-12 col-md-8" style="padding-top:10px;">
-					{{ingredient.name}}
+					{{ingredient.name}} ({{ingredient.usageCount}})
 				</div>
 
 
 				
 				<div class="col-xs-8 col-md-3 category-buttons">
-					<span class="btn btn-danger" style="margin-left:5px;" (click)="deleteCategory(category);">
+					<span class="btn btn-danger" style="margin-left:5px;" (click)="deleteCategory(category);" [hidden]="ingredient.usageCount > 0">
 						<i class="fa fa-minus"></i>
+					</span>
+					<span class="btn btn-primary" style="margin-left:5px;" (click)="deleteCategory(category);">
+						<i class="fa fa-pencil"></i>
 					</span>
 				</div>
 			</div>
